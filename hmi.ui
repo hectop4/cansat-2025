@@ -152,7 +152,7 @@ border-radius: 27px;
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>48</height>
+           <height>50</height>
           </size>
          </property>
          <property name="maximumSize">
@@ -173,6 +173,8 @@ border-radius: 27px;
           <string notr="true">color: #FFFFFF;
 font-size: 35px;
 font-weight: bold;
+
+background-color: #1E3E62
 </string>
          </property>
          <property name="text">
@@ -342,7 +344,7 @@ QPushButton:hover
         <widget class="QWidget" name="gyro_chart" native="true">
          <property name="minimumSize">
           <size>
-           <width>488</width>
+           <width>640</width>
            <height>0</height>
           </size>
          </property>
@@ -361,7 +363,7 @@ border-radius:15px;</string>
            <rect>
             <x>10</x>
             <y>10</y>
-            <width>461</width>
+            <width>611</width>
             <height>341</height>
            </rect>
           </property>
@@ -386,7 +388,7 @@ border-radius:15px;</string>
         <widget class="QWidget" name="acc_chart" native="true">
          <property name="minimumSize">
           <size>
-           <width>488</width>
+           <width>640</width>
            <height>0</height>
           </size>
          </property>
@@ -405,7 +407,7 @@ border-radius:15px;</string>
            <rect>
             <x>10</x>
             <y>10</y>
-            <width>471</width>
+            <width>621</width>
             <height>341</height>
            </rect>
           </property>
@@ -430,7 +432,7 @@ border-radius:15px;</string>
         <widget class="QWidget" name="ppm_chart" native="true">
          <property name="minimumSize">
           <size>
-           <width>364</width>
+           <width>480</width>
            <height>0</height>
           </size>
          </property>
@@ -449,11 +451,11 @@ border-radius:15px;</string>
            <rect>
             <x>0</x>
             <y>10</y>
-            <width>361</width>
+            <width>471</width>
             <height>351</height>
            </rect>
           </property>
-          <layout class="QGridLayout" name="gridLayout"/>
+          <layout class="QGridLayout" name="ppm"/>
          </widget>
         </widget>
        </item>
@@ -476,9 +478,15 @@ border-radius:15px;</string>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
         <widget class="QFrame" name="height_chart">
+         <property name="minimumSize">
+          <size>
+           <width>440</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="maximumSize">
           <size>
-           <width>325</width>
+           <width>440</width>
            <height>397</height>
           </size>
          </property>
@@ -495,10 +503,10 @@ border-radius:15px;</string>
          <widget class="QWidget" name="gridLayoutWidget_4">
           <property name="geometry">
            <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>321</width>
-            <height>391</height>
+            <x>10</x>
+            <y>10</y>
+            <width>421</width>
+            <height>381</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="height"/>
@@ -509,7 +517,7 @@ border-radius:15px;</string>
         <widget class="QWidget" name="temp_chart" native="true">
          <property name="maximumSize">
           <size>
-           <width>325</width>
+           <width>440</width>
            <height>397</height>
           </size>
          </property>
@@ -522,7 +530,7 @@ border-radius:15px;</string>
            <rect>
             <x>10</x>
             <y>10</y>
-            <width>311</width>
+            <width>421</width>
             <height>381</height>
            </rect>
           </property>
@@ -534,7 +542,7 @@ border-radius:15px;</string>
         <widget class="QWidget" name="press_chart" native="true">
          <property name="maximumSize">
           <size>
-           <width>325</width>
+           <width>440</width>
            <height>397</height>
           </size>
          </property>
@@ -545,10 +553,10 @@ border-radius:15px;</string>
          <widget class="QWidget" name="gridLayoutWidget_6">
           <property name="geometry">
            <rect>
-            <x>0</x>
-            <y>10</y>
-            <width>321</width>
-            <height>381</height>
+            <x>10</x>
+            <y>20</y>
+            <width>411</width>
+            <height>371</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="pressure"/>
@@ -559,7 +567,7 @@ border-radius:15px;</string>
         <widget class="QWidget" name="speed_chart" native="true">
          <property name="maximumSize">
           <size>
-           <width>325</width>
+           <width>440</width>
            <height>397</height>
           </size>
          </property>
@@ -570,10 +578,10 @@ border-radius:15px;</string>
          <widget class="QWidget" name="gridLayoutWidget_7">
           <property name="geometry">
            <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>321</width>
-            <height>391</height>
+            <x>10</x>
+            <y>20</y>
+            <width>421</width>
+            <height>371</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="speed"/>
