@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1440</width>
-    <height>1024</height>
+    <width>1920</width>
+    <height>1080</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,7 +28,7 @@
      <rect>
       <x>10</x>
       <y>20</y>
-      <width>1411</width>
+      <width>1881</width>
       <height>141</height>
      </rect>
     </property>
@@ -318,7 +318,7 @@ QPushButton:hover
      <rect>
       <x>10</x>
       <y>170</y>
-      <width>1411</width>
+      <width>1881</width>
       <height>831</height>
      </rect>
     </property>
@@ -356,6 +356,17 @@ QPushButton:hover
           <string notr="true">background-color:#1E3E62;
 border-radius:15px;</string>
          </property>
+         <widget class="QWidget" name="gridLayoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>461</width>
+            <height>341</height>
+           </rect>
+          </property>
+          <layout class="QGridLayout" name="gyroscope"/>
+         </widget>
         </widget>
        </item>
        <item>
@@ -389,6 +400,17 @@ border-radius:15px;</string>
           <string notr="true">background-color:#1E3E62;
 border-radius:15px;</string>
          </property>
+         <widget class="QWidget" name="gridLayoutWidget_2">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>471</width>
+            <height>341</height>
+           </rect>
+          </property>
+          <layout class="QGridLayout" name="acceleration"/>
+         </widget>
         </widget>
        </item>
        <item>
@@ -422,6 +444,17 @@ border-radius:15px;</string>
           <string notr="true">background-color:#1E3E62;
 border-radius:15px;</string>
          </property>
+         <widget class="QWidget" name="gridLayoutWidget_3">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>10</y>
+            <width>361</width>
+            <height>351</height>
+           </rect>
+          </property>
+          <layout class="QGridLayout" name="gridLayout"/>
+         </widget>
         </widget>
        </item>
        <item>
@@ -459,6 +492,17 @@ border-radius:15px;</string>
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
+         <widget class="QWidget" name="gridLayoutWidget_4">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>321</width>
+            <height>391</height>
+           </rect>
+          </property>
+          <layout class="QGridLayout" name="height"/>
+         </widget>
         </widget>
        </item>
        <item>
@@ -473,6 +517,17 @@ border-radius:15px;</string>
           <string notr="true">background-color:#1E3E62;
 border-radius:15px;</string>
          </property>
+         <widget class="QWidget" name="gridLayoutWidget_5">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>311</width>
+            <height>381</height>
+           </rect>
+          </property>
+          <layout class="QGridLayout" name="temp"/>
+         </widget>
         </widget>
        </item>
        <item>
@@ -487,6 +542,17 @@ border-radius:15px;</string>
           <string notr="true">background-color:#1E3E62;
 border-radius:15px;</string>
          </property>
+         <widget class="QWidget" name="gridLayoutWidget_6">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>10</y>
+            <width>321</width>
+            <height>381</height>
+           </rect>
+          </property>
+          <layout class="QGridLayout" name="pressure"/>
+         </widget>
         </widget>
        </item>
        <item>
@@ -501,7 +567,197 @@ border-radius:15px;</string>
           <string notr="true">background-color:#1E3E62;
 border-radius:15px;</string>
          </property>
+         <widget class="QWidget" name="gridLayoutWidget_7">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>321</width>
+            <height>391</height>
+           </rect>
+          </property>
+          <layout class="QGridLayout" name="speed"/>
+         </widget>
         </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>1010</y>
+      <width>1881</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <spacer name="horizontalSpacer_10">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>480</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="font">
+        <font>
+         <family>Kode Mono</family>
+         <pointsize>-1</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color:#FFFFFF;
+font-size: 30px;
+font-weight: semibold;
+</string>
+       </property>
+       <property name="text">
+        <string>GPS LOCATION:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_12">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>60</width>
+         <height>0</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QLabel" name="label_8">
+         <property name="font">
+          <font>
+           <family>Kode Mono</family>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:#FFFFFF;
+font-size: 30px;
+font-weight: semibold;</string>
+         </property>
+         <property name="text">
+          <string>LATITUDE:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lat">
+         <property name="font">
+          <font>
+           <family>Kode Mono</family>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:#FFFFFF;
+font-size: 30px;
+font-weight: semibold;</string>
+         </property>
+         <property name="text">
+          <string>40.741895</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_11">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_6">
+         <property name="font">
+          <font>
+           <family>Kode Mono</family>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:#FFFFFF;
+font-size: 30px;
+font-weight: semibold;</string>
+         </property>
+         <property name="text">
+          <string>LONGITUDE</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lon">
+         <property name="font">
+          <font>
+           <family>Kode Mono</family>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:#FFFFFF;
+font-size: 30px;
+font-weight: semibold;
+</string>
+         </property>
+         <property name="text">
+          <string>-73.989308</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_9">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </item>
