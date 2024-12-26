@@ -152,7 +152,7 @@ border-radius: 27px;
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>48</height>
+           <height>50</height>
           </size>
          </property>
          <property name="maximumSize">
@@ -173,6 +173,8 @@ border-radius: 27px;
           <string notr="true">color: #FFFFFF;
 font-size: 35px;
 font-weight: bold;
+
+background-color: #1E3E62
 </string>
          </property>
          <property name="text">
@@ -453,7 +455,7 @@ border-radius:15px;</string>
             <height>351</height>
            </rect>
           </property>
-          <layout class="QGridLayout" name="gridLayout"/>
+          <layout class="QGridLayout" name="ppm"/>
          </widget>
         </widget>
        </item>
