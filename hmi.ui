@@ -67,7 +67,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap>../../Downloads/Insignia-TechNova 1.png</pixmap>
+        <pixmap>img/Insignia-TechNova 1.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -104,7 +104,7 @@
        <property name="font">
         <font>
          <family>Kode Mono</family>
-         <pointsize>-1</pointsize>
+         <pointsize>1</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -164,7 +164,7 @@ border-radius: 27px;
          <property name="font">
           <font>
            <family>Kode Mono</family>
-           <pointsize>-1</pointsize>
+           <pointsize>1</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -245,7 +245,7 @@ font-weight: bold;
          <property name="font">
           <font>
            <family>Kode Mono</family>
-           <pointsize>-1</pointsize>
+           <pointsize>1</pointsize>
            <weight>75</weight>
            <bold>true</bold>
            <stylestrategy>PreferAntialias</stylestrategy>
@@ -283,7 +283,7 @@ QPushButton:hover
          <property name="font">
           <font>
            <family>Kode Mono</family>
-           <pointsize>-1</pointsize>
+           <pointsize>1</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -615,7 +615,7 @@ border-radius:15px;</string>
        <property name="font">
         <font>
          <family>Kode Mono</family>
-         <pointsize>-1</pointsize>
+         <pointsize>1</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -654,7 +654,7 @@ font-weight: semibold;
          <property name="font">
           <font>
            <family>Kode Mono</family>
-           <pointsize>-1</pointsize>
+           <pointsize>1</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -674,7 +674,7 @@ font-weight: semibold;</string>
          <property name="font">
           <font>
            <family>Kode Mono</family>
-           <pointsize>-1</pointsize>
+           <pointsize>1</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -710,7 +710,7 @@ font-weight: semibold;</string>
          <property name="font">
           <font>
            <family>Kode Mono</family>
-           <pointsize>-1</pointsize>
+           <pointsize>1</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -730,7 +730,7 @@ font-weight: semibold;</string>
          <property name="font">
           <font>
            <family>Kode Mono</family>
-           <pointsize>-1</pointsize>
+           <pointsize>1</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
