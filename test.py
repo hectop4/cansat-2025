@@ -155,6 +155,7 @@ class App(QMainWindow):
         self.plt_ppm.setLabel('bottom', "Time", units='s')
         self.plt_ppm.addLegend()
         self.plt_ppm.plot(self.x,self.y,pen=pg.mkPen(color=GRAPH_1,width=2),name="PPM")
+        
 
 
         
@@ -181,7 +182,13 @@ class App(QMainWindow):
         x=str(rx,"utf-8")
         data_dict =x
         print(data_dict)
-        
+
+    def keyPressEvent(self, event):
+        if (event.key() == Qt.Key_Escape and event.modifiers() == Qt.ControlModifier)or (event.key() == Qt.Key_Q and event.modifiers() == Qt.ControlModifier):
+            self.close()
+
+
+
 
 
     
