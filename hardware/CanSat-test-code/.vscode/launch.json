@@ -12,9 +12,9 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug",
-            "executable": "/home/hectorpuentes/pj/cansat_2025/hardware_code/CanSat-test-code/.pio/build/esp32dev/firmware.elf",
-            "projectEnvName": "esp32dev",
-            "toolchainBinDir": "/home/hectorpuentes/.platformio/packages/toolchain-xtensa-esp32/bin",
+            "executable": "/home/hectorpuentes/pj/cansat_2025/hardware/CanSat-test-code/.pio/build/esp32-s3-devkitc-1/firmware.elf",
+            "projectEnvName": "esp32-s3-devkitc-1",
+            "toolchainBinDir": "/home/hectorpuentes/.platformio/packages/toolchain-xtensa-esp32s3/bin",
             "internalConsoleOptions": "openOnSessionStart",
             "preLaunchTask": {
                 "type": "PlatformIO",
@@ -25,18 +25,18 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (skip Pre-Debug)",
-            "executable": "/home/hectorpuentes/pj/cansat_2025/hardware_code/CanSat-test-code/.pio/build/esp32dev/firmware.elf",
-            "projectEnvName": "esp32dev",
-            "toolchainBinDir": "/home/hectorpuentes/.platformio/packages/toolchain-xtensa-esp32/bin",
+            "executable": "/home/hectorpuentes/pj/cansat_2025/hardware/CanSat-test-code/.pio/build/esp32-s3-devkitc-1/firmware.elf",
+            "projectEnvName": "esp32-s3-devkitc-1",
+            "toolchainBinDir": "/home/hectorpuentes/.platformio/packages/toolchain-xtensa-esp32s3/bin",
             "internalConsoleOptions": "openOnSessionStart"
         },
         {
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (without uploading)",
-            "executable": "/home/hectorpuentes/pj/cansat_2025/hardware_code/CanSat-test-code/.pio/build/esp32dev/firmware.elf",
-            "projectEnvName": "esp32dev",
-            "toolchainBinDir": "/home/hectorpuentes/.platformio/packages/toolchain-xtensa-esp32/bin",
+            "executable": "/home/hectorpuentes/pj/cansat_2025/hardware/CanSat-test-code/.pio/build/esp32-s3-devkitc-1/firmware.elf",
+            "projectEnvName": "esp32-s3-devkitc-1",
+            "toolchainBinDir": "/home/hectorpuentes/.platformio/packages/toolchain-xtensa-esp32s3/bin",
             "internalConsoleOptions": "openOnSessionStart",
             "loadMode": "manual"
         }
