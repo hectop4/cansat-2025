@@ -13,6 +13,7 @@ from numpy import sin, cos, arccos, pi, round
 import math
 import pandas as pd
 import csv
+
 import time
 
 
@@ -75,87 +76,32 @@ class App(QMainWindow):
 #Configuramos los colores principales de las graficas
         pg.setConfigOption('background', "#1E3E62")
         pg.setConfigOption('foreground', "white")
-#% Plot_Giroscope
-        self.plt_giroscope=pg.PlotWidget(title="Giroscope")
-        self.gyroscope.addWidget(self.plt_giroscope)
-        self.plt_giroscope.setYRange(-12,12)
-        self.plt_giroscope.setXRange(0,100)
-        self.plt_giroscope.showGrid(x=False,y=True)
-        self.plt_giroscope.setLabel('left', "Angle", units='°')
-        self.plt_giroscope.setLabel('bottom', "Time", units='s')
-        self.plt_giroscope.addLegend()
-        self.plt_giroscope.setMouseEnabled(x=False,y=True)
-        # self.plt_giroscope.plot(self.x,self.y,pen=pg.mkPen(color=GRAPH_1,width=2),name="Angle X")
-        # self.plt_giroscope.plot(self.y,self.x,pen=pg.mkPen(color=GRAPH_2,width=2),name="Angle Y")
-        # self.plt_giroscope.plot(self.x,self.y,pen=pg.mkPen(color=GRAPH_3,width=2),name="Angle Z")
-#%Plot_Accelerometer
-        self.plt_accelerometer=pg.PlotWidget(title="Accelerometer")
-        self.acceleration.addWidget(self.plt_accelerometer)
-        self.plt_accelerometer.setYRange(-15,15)
-        self.plt_accelerometer.setXRange(0,100)
-        self.plt_accelerometer.showGrid(x=False,y=True)
-        self.plt_accelerometer.setMouseEnabled(x=False,y=True)
-        self.plt_accelerometer.setLabel('left', "Acceleration", units='m/s^2')
-        self.plt_accelerometer.setLabel('bottom', "Time", units='s')
-        self.plt_accelerometer.addLegend()
 
-#%Plot height
-        self.plt_height=pg.PlotWidget(title="Height")
-        self.height.addWidget(self.plt_height)
-        self.plt_height.setYRange(-20,2500)
-        self.plt_height.setXRange(0,100)
-        self.plt_height.showGrid(x=False,y=True)
-        self.plt_height.setMouseEnabled(x=False,y=True)
-        self.plt_height.setLabel('left', "Height", units='m')
-        self.plt_height.setLabel('bottom', "Time", units='s')
-        self.plt_height.addLegend()
-#%plot pressure
-        self.plt_pression=pg.PlotWidget(title="Pression")
-        self.pressure.addWidget(self.plt_pression)
-        self.plt_pression.setYRange(0,78000)
-        self.plt_pression.setXRange(0,100)
-        self.plt_pression.showGrid(x=False,y=True)
-        self.plt_pression.setMouseEnabled(x=False,y=True)
-        self.plt_pression.setLabel('left', "Pression", units='Pa')
-        self.plt_pression.setLabel('bottom', "Time", units='s')
-        self.plt_pression.addLegend()
-        #self.plt_pression.plot(self.x,self.y,pen=pg.mkPen(color=GRAPH_2,width=2),name="Pression")
-#%plot temperature
-        self.plt_temperature=pg.PlotWidget(title="Temperature")
-        self.temp.addWidget(self.plt_temperature)
-        self.plt_temperature.setYRange(200,350)
-        self.plt_temperature.setXRange(0,100)
-        self.plt_temperature.showGrid(x=False,y=True)
-        self.plt_temperature.setLabel('left', "Temperature", units='K')
-        self.plt_temperature.setLabel('bottom', "Time", units='s')
-        self.plt_temperature.setMouseEnabled(x=False,y=True)
-        self.plt_temperature.addLegend()
-        #self.plt_temperature.plot(self.x,self.y2,pen=pg.mkPen(color=GRAPH_3,width=2),name="Temperature")
+    
+        def create_plot(widget, title, y_range, x_range, y_label, y_units, x_label, x_units, color=None, name=None):
+            plot = pg.PlotWidget(title=title)
+            widget.addWidget(plot)
+            plot.setYRange(*y_range)
+            plot.setXRange(*x_range)
+            plot.showGrid(x=False, y=True)
+            plot.setMouseEnabled(x=False, y=True)
+            plot.setLabel('left', y_label, units=y_units)
+            plot.setLabel('bottom', x_label, units=x_units)
+            plot.addLegend()
+            # if color and name:
+                # plot.plot(self.x, self.y, pen=pg.mkPen(color=color, width=2), name=name)
+            return plot
 
-#%plot speed
-        self.plt_speed=pg.PlotWidget(title="Speed")
-        self.speed.addWidget(self.plt_speed)
-        self.plt_speed.setYRange(-180,100)
-        self.plt_speed.setXRange(0,100)
-        self.plt_speed.showGrid(x=False,y=True)
-        self.plt_speed.setMouseEnabled(x=False,y=True)
-        self.plt_speed.setLabel('left', "Speed", units='m/s')
-        self.plt_speed.setLabel('bottom', "Time", units='s')
-        self.plt_speed.addLegend()
-        #self.plt_speed.plot(self.x,self.y1,pen=pg.mkPen(color=GRAPH_4,width=2),name="Speed")
+        # Create and configure all plots
+        self.plt_giroscope = create_plot(self.gyroscope, "Giroscope", (-12, 12), (0, 100), "Angle", "°", "Time", "s")
+        self.plt_accelerometer = create_plot(self.acceleration, "Accelerometer", (-15, 15), (0, 100), "Acceleration", "m/s^2", "Time", "s")
+        self.plt_height = create_plot(self.height, "Height", (-20, 2500), (0, 100), "Height", "m", "Time", "s")
+        self.plt_pression = create_plot(self.pressure, "Pression", (0, 78000), (0, 100), "Pression", "Pa", "Time", "s")
+        self.plt_temperature = create_plot(self.temp, "Temperature", (260, 300), (0, 100), "Temperature", "K", "Time", "s")
+        self.plt_speed = create_plot(self.speed, "Speed", (-180, 100), (0, 100), "Speed", "m/s", "Time", "s")
+        self.plt_ppm = create_plot(self.ppm, "PPM", (0, 100), (0, 100), "PPM", "ppm", "Time", "s", GRAPH_1, "PPM")
 
-#%Plot PPM
-        self.plt_ppm=pg.PlotWidget(title="PPM")
-        self.ppm.addWidget(self.plt_ppm)
-        self.plt_ppm.setYRange(0,100)
-        self.plt_ppm.setXRange(0,100)
-        self.plt_ppm.showGrid(x=False,y=True)
-        self.plt_ppm.setMouseEnabled(x=False,y=True)
-        self.plt_ppm.setLabel('left', "PPM", units='ppm')
-        self.plt_ppm.setLabel('bottom', "Time", units='s')
-        self.plt_ppm.addLegend()
-        self.plt_ppm.plot(self.x,self.y,pen=pg.mkPen(color=GRAPH_1,width=2),name="PPM")
-        
+    # Create and configure the main layout        
 
 
         
@@ -182,13 +128,59 @@ class App(QMainWindow):
         x=str(rx,"utf-8")
         data_dict =x
         print(data_dict)
+        print("Data: ",parse_text_to_dict(data_dict))
+        data_dict=parse_text_to_dict(data_dict)
+        try:
+            # Recortar self.x para mantener el mismo tamaño que las demás listas
+            self.x = self.x[1:]
+
+            # Gráfico de temperatura
+            self.t = self.t[1:]
+            self.t.append(float(data_dict['T']) + 273.15)
+            self.plt_temperature.clear()
+            self.plt_temperature.plot(self.x, self.t, pen=pg.mkPen(color=GRAPH_3, width=2), name="Temperature")
+
+            # Gráfico de presión
+            self.p = self.p[1:]
+            self.p.append(float(data_dict['P']))
+            self.plt_pression.clear()
+            self.plt_pression.plot(self.x, self.p, pen=pg.mkPen(color=GRAPH_4, width=2), name="Pressure")
+
+            # Gráfico de altura
+            self.h = self.h[1:]
+            self.h.append(float(data_dict['H']))
+            self.plt_height.clear()
+            self.plt_height.plot(self.x, self.h, pen=pg.mkPen(color=GRAPH_2, width=2), name="Height")
+
+            # Gráfico de PPM
+            self.ppm = self.ppm[1:]
+            self.ppm.append(float(data_dict['PPM']))
+            self.plt_ppm.clear()
+            self.plt_ppm.plot(self.x, self.ppm, pen=pg.mkPen(color=GRAPH_1, width=2), name="PPM")
+
+        except ValueError as e:
+            # Log the error and skip the corrupt value
+            print(f"ValueError encountered: {e}")
+            pass
+            
 
     def keyPressEvent(self, event):
         if (event.key() == Qt.Key_Escape and event.modifiers() == Qt.ControlModifier)or (event.key() == Qt.Key_Q and event.modifiers() == Qt.ControlModifier):
             self.close()
 
 
-
+def parse_text_to_dict(text):
+  """
+  Parses a text string into a dictionary. Each item is separated by commas,
+  and key-value pairs are separated by colons. The first two items are discarded.
+  """
+  items = text.split(",")[2:]  # Discard the first two items
+  result = {}
+  for item in items:
+    if ":" in item:
+      key, value = item.split(":", 1)
+      result[key.strip()] = value.strip()
+  return result
 
 
     
