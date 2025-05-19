@@ -13,6 +13,7 @@ from numpy import sin, cos, arccos, pi, round
 import math
 import pandas as pd
 import csv
+
 import time
 
 
@@ -72,91 +73,36 @@ class App(QMainWindow):
         self.t=list(np.linspace(0,0,100))
         self.p=list(np.linspace(0,0,100))
         self.h=list(np.linspace(0,0,100))
-        
+        self.m=list(np.linspace(0,0,100))
 #Configuramos los colores principales de las graficas
         pg.setConfigOption('background', "#1E3E62")
         pg.setConfigOption('foreground', "white")
-#% Plot_Giroscope
-        self.plt_giroscope=pg.PlotWidget(title="Giroscope")
-        self.gyroscope.addWidget(self.plt_giroscope)
-        self.plt_giroscope.setYRange(-12,12)
-        self.plt_giroscope.setXRange(0,100)
-        self.plt_giroscope.showGrid(x=False,y=True)
-        self.plt_giroscope.setLabel('left', "Angle", units='°')
-        self.plt_giroscope.setLabel('bottom', "Time", units='s')
-        self.plt_giroscope.addLegend()
-        self.plt_giroscope.setMouseEnabled(x=False,y=True)
-        # self.plt_giroscope.plot(self.x,self.y,pen=pg.mkPen(color=GRAPH_1,width=2),name="Angle X")
-        # self.plt_giroscope.plot(self.y,self.x,pen=pg.mkPen(color=GRAPH_2,width=2),name="Angle Y")
-        # self.plt_giroscope.plot(self.x,self.y,pen=pg.mkPen(color=GRAPH_3,width=2),name="Angle Z")
-#%Plot_Accelerometer
-        self.plt_accelerometer=pg.PlotWidget(title="Accelerometer")
-        self.acceleration.addWidget(self.plt_accelerometer)
-        self.plt_accelerometer.setYRange(-15,15)
-        self.plt_accelerometer.setXRange(0,100)
-        self.plt_accelerometer.showGrid(x=False,y=True)
-        self.plt_accelerometer.setMouseEnabled(x=False,y=True)
-        self.plt_accelerometer.setLabel('left', "Acceleration", units='m/s^2')
-        self.plt_accelerometer.setLabel('bottom', "Time", units='s')
-        self.plt_accelerometer.addLegend()
 
-#%Plot height
-        self.plt_height=pg.PlotWidget(title="Height")
-        self.height.addWidget(self.plt_height)
-        self.plt_height.setYRange(-20,2500)
-        self.plt_height.setXRange(0,100)
-        self.plt_height.showGrid(x=False,y=True)
-        self.plt_height.setMouseEnabled(x=False,y=True)
-        self.plt_height.setLabel('left', "Height", units='m')
-        self.plt_height.setLabel('bottom', "Time", units='s')
-        self.plt_height.addLegend()
-#%plot pressure
-        self.plt_pression=pg.PlotWidget(title="Pression")
-        self.pressure.addWidget(self.plt_pression)
-        self.plt_pression.setYRange(0,78000)
-        self.plt_pression.setXRange(0,100)
-        self.plt_pression.showGrid(x=False,y=True)
-        self.plt_pression.setMouseEnabled(x=False,y=True)
-        self.plt_pression.setLabel('left', "Pression", units='Pa')
-        self.plt_pression.setLabel('bottom', "Time", units='s')
-        self.plt_pression.addLegend()
-        #self.plt_pression.plot(self.x,self.y,pen=pg.mkPen(color=GRAPH_2,width=2),name="Pression")
-#%plot temperature
-        self.plt_temperature=pg.PlotWidget(title="Temperature")
-        self.temp.addWidget(self.plt_temperature)
-        self.plt_temperature.setYRange(200,350)
-        self.plt_temperature.setXRange(0,100)
-        self.plt_temperature.showGrid(x=False,y=True)
-        self.plt_temperature.setLabel('left', "Temperature", units='K')
-        self.plt_temperature.setLabel('bottom', "Time", units='s')
-        self.plt_temperature.setMouseEnabled(x=False,y=True)
-        self.plt_temperature.addLegend()
-        #self.plt_temperature.plot(self.x,self.y2,pen=pg.mkPen(color=GRAPH_3,width=2),name="Temperature")
+    
+        def create_plot(widget, title, y_range, x_range, y_label, y_units, x_label, x_units, color=None, name=None):
+            plot = pg.PlotWidget(title=title)
+            widget.addWidget(plot)
+            plot.setYRange(*y_range)
+            plot.setXRange(*x_range)
+            plot.showGrid(x=False, y=True)
+            plot.setMouseEnabled(x=False, y=True)
+            plot.setLabel('left', y_label, units=y_units)
+            plot.setLabel('bottom', x_label, units=x_units)
+            plot.addLegend()
+            # if color and name:
+                # plot.plot(self.x, self.y, pen=pg.mkPen(color=color, width=2), name=name)
+            return plot
 
-#%plot speed
-        self.plt_speed=pg.PlotWidget(title="Speed")
-        self.speed.addWidget(self.plt_speed)
-        self.plt_speed.setYRange(-180,100)
-        self.plt_speed.setXRange(0,100)
-        self.plt_speed.showGrid(x=False,y=True)
-        self.plt_speed.setMouseEnabled(x=False,y=True)
-        self.plt_speed.setLabel('left', "Speed", units='m/s')
-        self.plt_speed.setLabel('bottom', "Time", units='s')
-        self.plt_speed.addLegend()
-        #self.plt_speed.plot(self.x,self.y1,pen=pg.mkPen(color=GRAPH_4,width=2),name="Speed")
+        # Create and configure all plots
+        self.plt_giroscope = create_plot(self.gyroscope, "Giroscope", (-12, 12), (0, 100), "Angle", "°", "Time", "s")
+        self.plt_accelerometer = create_plot(self.acceleration, "Accelerometer", (-15, 15), (0, 100), "Acceleration", "m/s^2", "Time", "s")
+        self.plt_height = create_plot(self.height, "Height", (-20, 2500), (0, 100), "Height", "m", "Time", "s")
+        self.plt_pression = create_plot(self.pressure, "Pression", (0, 78000), (0, 100), "Pression", "Pa", "Time", "s")
+        self.plt_temperature = create_plot(self.temp, "Temperature", (260, 300), (0, 100), "Temperature", "K", "Time", "s")
+        self.plt_speed = create_plot(self.speed, "Speed", (-180, 100), (0, 100), "Speed", "m/s", "Time", "s")
+        self.plt_ppm = create_plot(self.ppm, "PPM", (0, 100), (0, 100), "PPM", "ppm", "Time", "s", GRAPH_1, "PPM")
 
-#%Plot PPM
-        self.plt_ppm=pg.PlotWidget(title="PPM")
-        self.ppm.addWidget(self.plt_ppm)
-        self.plt_ppm.setYRange(0,100)
-        self.plt_ppm.setXRange(0,100)
-        self.plt_ppm.showGrid(x=False,y=True)
-        self.plt_ppm.setMouseEnabled(x=False,y=True)
-        self.plt_ppm.setLabel('left', "PPM", units='ppm')
-        self.plt_ppm.setLabel('bottom', "Time", units='s')
-        self.plt_ppm.addLegend()
-        # self.plt_ppm.plot(self.x,self.y,pen=pg.mkPen(color=GRAPH_1,width=2),name="PPM")
-        
+    # Create and configure the main layout        
 
 
         
@@ -177,89 +123,75 @@ class App(QMainWindow):
         self.serial.setPortName(self.port)
         self.serial.open(QIODevice.ReadWrite)
         print('reading')
+
     def read_serial(self):
-        if not self.serial.canReadLine(): return
-        rx=self.serial.readLine()
-        x=str(rx,"utf-8")
-        data_dict =x
-        print(data_dict)
-        print("Data: ",parse_text_to_dict(data_dict))
-        data_dict=parse_text_to_dict(data_dict)
+        if not self.serial.canReadLine(): 
+            return  # <-- Importante salir aquí si no hay datos
+
+        rx = self.serial.readLine()
+        x = str(rx, "utf-8").strip()
+        print('Raw Data:', x)  # Verifica los datos crudos que llegan
+        data_dict = parse_text_to_dict(x)
+        print("Parsed Data: ", data_dict)  # Revisa el formato del diccionario resultante
 
         try:
-            #Grafico temperatura
-            self.t=self.t[1:]
-            self.t.append(float(data_dict['T'])+273.15)
+            if 'T' in data_dict:
+                self.temperature_value = float(data_dict['T']) + 273.15
+
+            if 'P' in data_dict:
+                self.pressure_value = float(data_dict['P'])
+
+            if 'H' in data_dict:
+                self.height_value = float(data_dict['H'])
+
+            if 'M' in data_dict:
+                self.ppm_value = float(data_dict['M'])  # Cambia a un nombre temporal
+
+            self.update_graphs()  # Actualizar solo cuando tengas nuevos datos
+
+        except ValueError as e:
+            print(f"ValueError encountered: {e}")
+            pass
+
+    #*Actualizamos los graficos
+    def update_graphs(self):
+        """
+        Updates the graphs when Temperature, Pressure and Height values are available.
+        """
+        if hasattr(self, 'temperature_value') and hasattr(self, 'pressure_value') and hasattr(self, 'height_value') and hasattr(self, 'ppm_value'):
+            self.x.append(self.x[-1] + 1 if self.x else 0)
+            self.t.append(self.temperature_value)
+            self.p.append(self.pressure_value)
+            self.h.append(self.height_value)
+            self.m.append(self.ppm_value)  # Agrega el valor a la lista
+
+            max_length = 1000
+            if len(self.x) > max_length:
+                self.x = self.x[-max_length:]
+                self.t = self.t[-max_length:]
+                self.p = self.p[-max_length:]
+                self.h = self.h[-max_length:]
+                self.m = self.m[-max_length:]
+
+            # Actualizar gráficas
             self.plt_temperature.clear()
-            self.plt_temperature.plot(self.x,self.t,pen=pg.mkPen(color=GRAPH_3,width=2),name="Temperature")
+            self.plt_temperature.plot(self.x, self.t, pen=pg.mkPen(color=GRAPH_3, width=2), name="Temperature")
+            self.plt_temperature.enableAutoRange(axis='x', enable=True)
 
-            #Grafico altura
-            self.h=self.h[1:]
-            self.h.append(float(data_dict['H']))
-            self.plt_height.clear()
-            self.plt_height.plot(self.x,self.h,pen=pg.mkPen(color=GRAPH_4,width=2),name="Height")
-
-            self.ppm=self.ppm[1:]
-            self.ppm.append(float(data_dict['PPM']))
-            self.plt_ppm.clear()
-            self.plt_ppm.plot(self.x,self.ppm,pen=pg.mkPen(color=GRAPH_1,width=2),name="PPM")
-
-            #Grafico presion
-            self.p=self.p[1:]
-            self.p.append(float(data_dict['AX']))
             self.plt_pression.clear()
-            self.plt_pression.plot(self.x,self.p,pen=pg.mkPen(color=GRAPH_2,width=2),name="Pression")
+            self.plt_pression.plot(self.x, self.p, pen=pg.mkPen(color=GRAPH_4, width=2), name="Pressure")
+            self.plt_pression.enableAutoRange(axis='x', enable=True)
 
-            #Grafico velocidad
-            self.v=self.v[1:]
-            self.v.append(float(data_dict['S']))
-            self.plt_speed.clear()
-            self.plt_speed.plot(self.x,self.v,pen=pg.mkPen(color=GRAPH_1,width=2),name="Speed")
+            self.plt_height.clear()
+            self.plt_height.plot(self.x, self.h, pen=pg.mkPen(color=GRAPH_2, width=2), name="Height")
+            self.plt_height.enableAutoRange(axis='x', enable=True)
 
-            #Grafico ppm
-            # self.ppm=self.ppm[1:]
-            # self.ppm.append(float(data_dict['PPM']))
-            # self.plt_ppm.clear()
-            # self.plt_ppm.plot(self.x,self.ppm,pen=pg.mkPen(color=GRAPH_1,width=2),name="PPM")
+            self.plt_ppm.clear()
+            self.plt_ppm.plot(self.x, self.m, pen=pg.mkPen(color=GRAPH_1, width=2), name="PPM")
+            self.plt_ppm.enableAutoRange(axis='x', enable=True)
 
-            #Grafico giroscopio
-            self.axy=self.axy[1:]
-            self.axy.append(float(data_dict['AX']))
-            self.plt_giroscope.clear()
-            self.plt_giroscope.plot(self.x,self.axy,pen=pg.mkPen(color=GRAPH_1,width=2),name="Angle X")
-            self.ayy=self.ayy[1:]
-            self.ayy.append(float(data_dict['AY']))
-            self.plt_giroscope.plot(self.x,self.ayy,pen=pg.mkPen(color=GRAPH_2,width=2),name="Angle Y")
-            self.azy=self.azy[1:]
-            self.azy.append(float(data_dict['AZ']))
-            self.plt_giroscope.plot(self.x,self.azy,pen=pg.mkPen(color=GRAPH_3,width=2),name="Angle Z")
 
-            #Grafico acelerometro
-            self.gxy=self.gxy[1:]
-            self.gxy.append(float(data_dict['GX']))
-            self.plt_accelerometer.clear()
-            self.plt_accelerometer.plot(self.x,self.gxy,pen=pg.mkPen(color=GRAPH_1,width=2),name="Acceleration X")
-            self.gyy=self.gyy[1:]
-            self.gyy.append(float(data_dict['GY']))
-            self.plt_accelerometer.plot(self.x,self.gyy,pen=pg.mkPen(color=GRAPH_2,width=2),name="Acceleration Y")
-            self.gzy=self.gzy[1:]
-            self.gzy.append(float(data_dict['GZ']))
-            self.plt_accelerometer.plot(self.x,self.gzy,pen=pg.mkPen(color=GRAPH_3,width=2),name="Acceleration Z")
-        except Exception as e:
-            print("Error: ",e)
-            self.x=list(np.linspace(0,100,100))
-            self.y=list(np.random.rand(100))
-            self.axy=list(np.linspace(0,0,100))
-            self.ayy=list(np.linspace(0,0,100))
-            self.azy=list(np.linspace(0,0,100))
-            self.gxy=list(np.linspace(0,0,100))
-            self.gyy=list(np.linspace(0,0,100))
-            self.gzy=list(np.linspace(0,0,100))
-            self.t=list(np.linspace(0,0,100))
-            self.p=list(np.linspace(0,0,100))
-            self.h=list(np.linspace(0,0,100))
-            self.ppm=list(np.linspace(0,0,100))
-            self.v=list(np.linspace(0,0,100))
+
 
 
     def keyPressEvent(self, event):
@@ -267,18 +199,47 @@ class App(QMainWindow):
             self.close()
 
 
+
+
+
 def parse_text_to_dict(text):
-  """
-  Parses a text string into a dictionary. Each item is separated by commas,
-  and key-value pairs are separated by colons. The first two items are discarded.
-  """
-  items = text.split(",")[2:]  # Discard the first two items
-  result = {}
-  for item in items:
-    if ":" in item:
-      key, value = item.split(":", 1)
-      result[key.strip()] = value.strip()
-  return result
+    """
+    Parses a text string and extracts the values of T, P, M, and H.
+    """
+    result = {}
+
+    # Dividimos el texto en elementos separados por comas
+    items = text.split(",")
+    print(f"Items: {items}")  # Verificar cómo se dividen los datos
+
+    for item in items:
+        # Buscamos las claves T, P, M, H y extraemos el valor correspondiente
+        if item.startswith("T"):  # Temperatura
+            key = "T"
+            value = item[2:]  # El valor sigue a la "T", así que eliminamos la "T"
+            result[key] = value.strip()
+            print(f"Parsed {key}: {value.strip()}")  # Verificar qué estamos extrayendo
+        
+        elif item.startswith("P"):  # Presión
+            key = "P"
+            value = item[2:]  # Extraemos el valor después de "P"
+            result[key] = value.strip()
+            print(f"Parsed {key}: {value.strip()}")  # Verificar qué estamos extrayendo
+        
+        elif item.startswith("M"):  # PPM
+            key = "M"
+            value = item[2:]  # Extraemos el valor después de "M"
+            result[key] = value.strip()
+            print(f"Parsed {key}: {value.strip()}")  # Verificar qué estamos extrayendo
+        
+        elif item.startswith("H"):  # Altura
+            key = "H"
+            value = item[2:]  # Extraemos el valor después de "H"
+            result[key] = value.strip()
+            print(f"Parsed {key}: {value.strip()}")  # Verificar qué estamos extrayendo
+
+    return result
+
     
 if __name__ == "__main__":
     app = QApplication(sys.argv)

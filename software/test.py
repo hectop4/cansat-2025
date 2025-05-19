@@ -62,7 +62,7 @@ class App(QMainWindow):
 
     #Charts Start
     #Configuramos las variables para los gráficos
-        self.x=list(np.linspace(0,100,100))
+        # self.x=list(np.linspace(0,100,100))
         self.y=list(np.random.rand(100))
         self.axy=list(np.linspace(0,0,100))
         self.ayy=list(np.linspace(0,0,100))
@@ -70,9 +70,15 @@ class App(QMainWindow):
         self.gxy=list(np.linspace(0,0,100))
         self.gyy=list(np.linspace(0,0,100))
         self.gzy=list(np.linspace(0,0,100))
-        self.t=list(np.linspace(0,0,100))
-        self.p=list(np.linspace(0,0,100))
-        self.h=list(np.linspace(0,0,100))
+        # self.t=list(np.linspace(0,0,100))
+        # self.p=list(np.linspace(0,0,100))
+        # self.h=list(np.linspace(0,0,100))
+        # self.m=list(np.linspace(0,0,100))
+        self.x = [0]
+        self.t = [0]
+        self.p = [0]
+        self.h = [0]
+        self.m = [0]
 #Configuramos los colores principales de las graficas
         pg.setConfigOption('background', "#1E3E62")
         pg.setConfigOption('foreground', "white")
@@ -122,66 +128,147 @@ class App(QMainWindow):
         self.serial.setPortName(self.port)
         self.serial.open(QIODevice.ReadWrite)
         print('reading')
+
     def read_serial(self):
-        if not self.serial.canReadLine(): return
-        rx=self.serial.readLine()
-        x=str(rx,"utf-8")
-        data_dict =x
-        print(data_dict)
-        print("Data: ",parse_text_to_dict(data_dict))
-        data_dict=parse_text_to_dict(data_dict)
+        if not self.serial.canReadLine(): 
+            return  # <-- Importante salir aquí si no hay datos
+
+        rx = self.serial.readLine()
+        x = str(rx, "utf-8").strip()
+        print('Raw Data:', x)  # Verifica los datos crudos que llegan
+        data_dict = parse_text_to_dict(x)
+        print("Parsed Data: ", data_dict)  # Revisa el formato del diccionario resultante
+
         try:
-            # Recortar self.x para mantener el mismo tamaño que las demás listas
-            self.x = self.x[1:]
+            if 'T' in data_dict:
+                self.temperature_value = float(data_dict['T']) + 273.15
 
-            # Gráfico de temperatura
-            self.t = self.t[1:]
-            self.t.append(float(data_dict['T']) + 273.15)
-            self.plt_temperature.clear()
-            self.plt_temperature.plot(self.x, self.t, pen=pg.mkPen(color=GRAPH_3, width=2), name="Temperature")
+            if 'P' in data_dict:
+                self.pressure_value = float(data_dict['P'])
 
-            # Gráfico de presión
-            self.p = self.p[1:]
-            self.p.append(float(data_dict['P']))
-            self.plt_pression.clear()
-            self.plt_pression.plot(self.x, self.p, pen=pg.mkPen(color=GRAPH_4, width=2), name="Pressure")
+            if 'H' in data_dict:
+                self.height_value = float(data_dict['H'])
 
-            # Gráfico de altura
-            self.h = self.h[1:]
-            self.h.append(float(data_dict['H']))
-            self.plt_height.clear()
-            self.plt_height.plot(self.x, self.h, pen=pg.mkPen(color=GRAPH_2, width=2), name="Height")
+            if 'M' in data_dict:
+                self.ppm_value = float(data_dict['M'])  # Cambia a un nombre temporal
 
-            # Gráfico de PPM
-            self.ppm = self.ppm[1:]
-            self.ppm.append(float(data_dict['PPM']))
-            self.plt_ppm.clear()
-            self.plt_ppm.plot(self.x, self.ppm, pen=pg.mkPen(color=GRAPH_1, width=2), name="PPM")
+            self.update_graphs()  # Actualizar solo cuando tengas nuevos datos
 
         except ValueError as e:
-            # Log the error and skip the corrupt value
             print(f"ValueError encountered: {e}")
             pass
-            
+
+    #*Actualizamos los graficos
+    def update_graphs(self):
+        """
+        Updates the graphs when Temperature, Pressure and Height values are available.
+        """
+        if hasattr(self, 'temperature_value') and hasattr(self, 'pressure_value') and hasattr(self, 'height_value') and hasattr(self, 'ppm_value'):
+            self.x.append(self.x[-1] + 1 if self.x else 0)
+            self.t.append(self.temperature_value)
+            self.p.append(self.pressure_value)
+            self.h.append(self.height_value)
+            self.m.append(self.ppm_value)  # Agrega el valor a la lista
+
+            max_length = 1000
+            if len(self.x) > max_length:
+                self.x = self.x[-max_length:]
+                self.t = self.t[-max_length:]
+                self.p = self.p[-max_length:]
+                self.h = self.h[-max_length:]
+                self.m = self.m[-max_length:]
+
+            # Actualizar gráficas
+            self.plt_temperature.clear()
+            self.plt_temperature.plot(self.x, self.t, pen=pg.mkPen(color=GRAPH_3, width=2), name="Temperature")
+            self.plt_temperature.setXRange(0, max(self.x) if self.x else 100)  # <-- Aquí está el cambio
+            self.plt_temperature.enableAutoRange(axis='y', enable=True)
+
+            self.plt_pression.clear()
+            self.plt_pression.plot(self.x, self.p, pen=pg.mkPen(color=GRAPH_4, width=2), name="Pressure")
+            self.plt_pression.setXRange(0, max(self.x) if self.x else 100)  # <-- Aquí está el cambio
+            self.plt_pression.enableAutoRange(axis='x', enable=True)
+
+            self.plt_height.clear()
+            self.plt_height.plot(self.x, self.h, pen=pg.mkPen(color=GRAPH_2, width=2), name="Height")
+            self.plt_height.setXRange(0, max(self.x) if self.x else 100)  # <-- Aquí está el cambio
+            self.plt_height.enableAutoRange(axis='y', enable=True)
+
+            self.plt_ppm.clear()
+            self.plt_ppm.plot(self.x, self.m, pen=pg.mkPen(color=GRAPH_1, width=2), name="PPM")
+            self.plt_ppm.setXRange(0, max(self.x) if self.x else 100)  # <-- Aquí está el cambio
+            self.plt_ppm.enableAutoRange(axis='y', enable=True)
+
+            self.export_csv()  # <-- Exporta los datos cada vez que se actualizan
+
+    def export_csv(self):
+        """Exporta los datos a 4 archivos CSV distintos."""
+        with open("temperatura.csv", "w", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(["Tiempo", "Temperatura"])
+            for x, t in zip(self.x, self.t):
+                writer.writerow([x, t])
+        with open("presion.csv", "w", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(["Tiempo", "Presion"])
+            for x, p in zip(self.x, self.p):
+                writer.writerow([x, p])
+        with open("altura.csv", "w", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(["Tiempo", "Altura"])
+            for x, h in zip(self.x, self.h):
+                writer.writerow([x, h])
+        with open("ppm.csv", "w", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(["Tiempo", "PPM"])
+            for x, m in zip(self.x, self.m):
+                writer.writerow([x, m])
 
     def keyPressEvent(self, event):
         if (event.key() == Qt.Key_Escape and event.modifiers() == Qt.ControlModifier)or (event.key() == Qt.Key_Q and event.modifiers() == Qt.ControlModifier):
             self.close()
 
 
-def parse_text_to_dict(text):
-  """
-  Parses a text string into a dictionary. Each item is separated by commas,
-  and key-value pairs are separated by colons. The first two items are discarded.
-  """
-  items = text.split(",")[2:]  # Discard the first two items
-  result = {}
-  for item in items:
-    if ":" in item:
-      key, value = item.split(":", 1)
-      result[key.strip()] = value.strip()
-  return result
 
+
+
+def parse_text_to_dict(text):
+    """
+    Parses a text string and extracts the values of T, P, M, and H.
+    """
+    result = {}
+
+    # Dividimos el texto en elementos separados por comas
+    items = text.split(",")
+    print(f"Items: {items}")  # Verificar cómo se dividen los datos
+
+    for item in items:
+        # Buscamos las claves T, P, M, H y extraemos el valor correspondiente
+        if item.startswith("T"):  # Temperatura
+            key = "T"
+            value = item[2:]  # El valor sigue a la "T", así que eliminamos la "T"
+            result[key] = value.strip()
+            print(f"Parsed {key}: {value.strip()}")  # Verificar qué estamos extrayendo
+        
+        elif item.startswith("P"):  # Presión
+            key = "P"
+            value = item[2:]  # Extraemos el valor después de "P"
+            result[key] = value.strip()
+            print(f"Parsed {key}: {value.strip()}")  # Verificar qué estamos extrayendo
+        
+        elif item.startswith("M"):  # PPM
+            key = "M"
+            value = item[2:]  # Extraemos el valor después de "M"
+            result[key] = value.strip()
+            print(f"Parsed {key}: {value.strip()}")  # Verificar qué estamos extrayendo
+        
+        elif item.startswith("H"):  # Altura
+            key = "H"
+            value = item[2:]  # Extraemos el valor después de "H"
+            result[key] = value.strip()
+            print(f"Parsed {key}: {value.strip()}")  # Verificar qué estamos extrayendo
+
+    return result
 
     
 if __name__ == "__main__":
