@@ -187,7 +187,7 @@ void loop()
     top = true;
   }
   if(top && altitude < second_height_limit){
-    myservo.write(90);0000000000
+    myservo.write(90);
   }
 
   // message = "T:"+ String(temperature) + ",P:" + String(pressure) + ",H:" + String(altitude) + ",M:" + String(ppm);
